@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import ArticleCard from '../components/ArticleCard.astro';
+
+const all = await getCollection('articles');
+const articles = all
+  .filter((a) => a.data.section === 'ajanya-kissa' && !a.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+---
+
+<BaseLayout
+  title="અજાણ્યા કિસ્સા — Katha"
+  description="અજાણ્યી, ચોંકાવનારી સત્ય ઘટનાઓ — જે મોટાભાગના લોકોએ ક્યારેય સાંભળી નથી."
+>
+  <Nav />
+
+  <main class="max-w-4xl mx-auto px-5 py-10">
+
+    <div class="mb-10 pb-8 border-b border-site-border">
+      <p class="text-xs font-bold uppercase tracking-widest text-accent mb-3">Section</p>
+      <h1 class="lang-gujarati text-3xl md:text-4xl font-bold mb-3">અજાણ્યા કિસ્સા</h1>
+      <p class="lang-gujarati text-site-muted text-base max-w-lg leading-relaxed">
+        અજાણ્યી, ચોંકાવનારી સત્ય ઘટનાઓ — જે મોટાભાગના લોકોએ ક્યારેય સાંભળી નથી.
+      </p>
+    </div>
+
+    {articles.length > 0 ? (
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        {articles.map((article) => (
+          <ArticleCard
+            title={article.data.title}
+            description={article.data.description}
+            date={article.data.date}
+            slug={article.slug}
+            section={article.data.section}
+            readTime={article.data.readTime ?? 4}
+          />
+        ))}
+      </div>
+    ) : (
+      <p class="lang-gujarati text-site-muted text-center py-20">હજી કોઈ લેખ નથી — જલ્દી આવશે.</p>
+    )}
+
+  </main>
+
+  <footer class="border-t border-site-border mt-16 py-6">
+    <div class="max-w-4xl mx-auto px-5 text-center">
+      <p class="text-xs text-site-muted">
+        <a href="/" class="font-bold text-site-text hover:text-accent transition-colors tracking-widest uppercase">Katha</a>
+        <span class="mx-2">·</span>
+        Stories that surprise. Histories that inspire.
+      </p>
+    </div>
+  </footer>
+</BaseLayout>

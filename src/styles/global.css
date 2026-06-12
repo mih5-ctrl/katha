@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: #FAFAF8;
+    color: #1A1A1A;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Gujarati script */
+  .lang-gujarati {
+    font-family: 'Noto Sans Gujarati', 'Hind Vadodara', system-ui, sans-serif;
+  }
+
+  /* Article body Gujarati */
+  .prose.lang-gujarati {
+    font-family: 'Noto Sans Gujarati', 'Hind Vadodara', system-ui, sans-serif;
+    font-size: 1.125rem;
+    line-height: 1.9;
+  }
+}
+
+@layer components {
+  /* Drop cap only for English serif articles */
+  .prose-dropcap p:first-of-type::first-letter {
+    float: left;
+    font-size: 4rem;
+    line-height: 1;
+    margin-right: 0.1em;
+    margin-top: 0.05em;
+    font-family: 'Lora', Georgia, serif;
+    font-weight: 700;
+    color: #B5451B;
+  }
+}

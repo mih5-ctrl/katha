@@ -1,0 +1,49 @@
+---
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  slug: string;
+  section: 'unheard-tales' | 'ajanya-kissa' | 'sacred-history' | 'dharmic-itihas';
+  readTime: number;
+}
+
+const { title, description, date, slug, section, readTime } = Astro.props;
+
+const sectionMeta: Record<string, { label: string; gu: boolean }> = {
+  'unheard-tales':  { label: 'Unheard Tales',    gu: false },
+  'ajanya-kissa':   { label: 'અજાણ્યા કિસ્સા',  gu: true  },
+  'sacred-history': { label: 'Sacred History',   gu: false },
+  'dharmic-itihas': { label: 'ધાર્મિક ઇતિહાસ', gu: true  },
+};
+
+const meta = sectionMeta[section];
+const dateStr = new Date(date).toLocaleDateString('en-IN', {
+  day: 'numeric', month: 'short', year: 'numeric',
+});
+---
+
+<a
+  href={`/articles/${slug}`}
+  class="group flex flex-col bg-white rounded-xl border border-site-border hover:border-accent/40 hover:shadow-md transition-all duration-200 overflow-hidden h-full"
+>
+  <div class="p-5 flex flex-col gap-3 flex-1">
+
+    <!-- Title -->
+    <h3 class={`font-bold leading-snug text-site-text group-hover:text-accent transition-colors line-clamp-3 ${meta.gu ? 'lang-gujarati text-base' : 'font-serif text-base md:text-[1.05rem]'}`}>
+      {title}
+    </h3>
+
+    <!-- Description -->
+    <p class={`text-sm text-site-muted leading-relaxed line-clamp-2 flex-1 ${meta.gu ? 'lang-gujarati' : ''}`}>
+      {description}
+    </p>
+
+    <!-- Meta -->
+    <div class="flex items-center gap-2 text-xs text-site-muted pt-1 border-t border-site-border/60 mt-auto">
+      <time>{dateStr}</time>
+      <span>·</span>
+      <span>{readTime} min read</span>
+    </div>
+  </div>
+</a>

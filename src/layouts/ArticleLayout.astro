@@ -1,0 +1,117 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import ReadNext from '../components/ReadNext.astro';
+import { getCollection } from 'astro:content';
+
+interface Props {
+  title: string;
+  description: string;
+  date: Date;
+  section: 'unheard-tales' | 'ajanya-kissa' | 'sacred-history' | 'dharmic-itihas';
+  readTime: number;
+  slug: string;
+}
+
+const { title, description, date, section, readTime, slug } = Astro.props;
+
+const sectionMeta: Record<string, { label: string; href: string; gu: boolean }> = {
+  'unheard-tales':  { label: 'Unheard Tales',    href: '/unheard-tales',  gu: false },
+  'ajanya-kissa':   { label: 'અજાણ્યા કિસ્સા',  href: '/ajanya-kissa',   gu: true  },
+  'sacred-history': { label: 'Sacred History',   href: '/sacred-history', gu: false },
+  'dharmic-itihas': { label: 'ધાર્મિક ઇતિહાસ', href: '/dharmic-itihas', gu: true  },
+};
+
+const meta = sectionMeta[section];
+const isGu = meta.gu;
+
+const allArticles = await getCollection('articles');
+const related = allArticles
+  .filter((a) => a.slug !== slug && a.data.section === section && !a.data.draft)
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 2);
+
+const dateStr = new Date(date).toLocaleDateString('en-IN', {
+  day: 'numeric', month: 'long', year: 'numeric',
+});
+---
+
+<BaseLayout title={`${title} — Katha`} description={description}>
+  <!-- Reading progress bar -->
+  <div
+    id="progress-bar"
+    class="fixed top-0 left-0 h-[3px] bg-accent z-50 transition-[width] duration-75 ease-linear"
+    style="width: 0%"
+    aria-hidden="true"
+  ></div>
+
+  <Nav />
+
+  <main class="max-w-[720px] mx-auto px-5 pt-10 pb-24">
+
+    <!-- Breadcrumb -->
+    <nav class="flex items-center gap-2 text-sm text-site-muted mb-8">
+      <a href="/" class="hover:text-accent transition-colors">Home</a>
+      <span>/</span>
+      <a href={meta.href} class={`hover:text-accent transition-colors ${isGu ? 'lang-gujarati' : ''}`}>{meta.label}</a>
+    </nav>
+
+    <!-- Article header -->
+    <header class="mb-10">
+      <!-- Title -->
+      <h1 class={`text-3xl md:text-4xl font-bold leading-tight mb-4 ${isGu ? 'lang-gujarati' : 'font-serif'}`}>
+        {title}
+      </h1>
+
+      <!-- Description -->
+      <p class={`text-lg text-site-muted leading-relaxed mb-6 ${isGu ? 'lang-gujarati' : ''}`}>
+        {description}
+      </p>
+
+      <!-- Meta -->
+      <div class="flex items-center gap-4 text-sm text-site-muted border-t border-b border-site-border py-3">
+        <time datetime={date.toISOString()}>{dateStr}</time>
+        <span>·</span>
+        <span>{readTime} min read</span>
+        <span>·</span>
+        <a href={meta.href} class={`text-accent hover:underline ${isGu ? 'lang-gujarati' : ''}`}>{meta.label}</a>
+      </div>
+    </header>
+
+    <!-- Article body -->
+    <article class={`prose prose-lg max-w-none ${isGu ? 'lang-gujarati' : 'prose-dropcap'}`}>
+      <slot />
+    </article>
+
+    <!-- Ad slot placeholder -->
+    <div id="ad-slot-bottom" class="my-10" aria-hidden="true"></div>
+
+    <!-- Related articles -->
+    <ReadNext articles={related} />
+
+  </main>
+
+  <footer class="border-t border-site-border py-6">
+    <div class="max-w-6xl mx-auto px-5 text-center">
+      <p class="text-xs text-site-muted">
+        <a href="/" class="font-bold text-site-text hover:text-accent transition-colors tracking-widest uppercase">Katha</a>
+        <span class="mx-2">·</span>
+        Stories that surprise. Histories that inspire.
+      </p>
+    </div>
+  </footer>
+</BaseLayout>
+
+<script>
+  const bar = document.getElementById('progress-bar');
+  const article = document.querySelector('article');
+  if (bar && article) {
+    const update = () => {
+      const scrollable = article.offsetTop + article.offsetHeight - window.innerHeight;
+      const pct = scrollable > 0 ? Math.min((window.scrollY / scrollable) * 100, 100) : 100;
+      bar.style.width = `${pct}%`;
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    update();
+  }
+</script>
