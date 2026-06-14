@@ -47,6 +47,16 @@ export default {
               paddingLeft: '1.25rem',
             },
             strong: { color: '#1A1A1A' },
+            hr: {
+              borderColor: '#B5451B22',
+              marginTop: '2.5rem',
+              marginBottom: '2.5rem',
+            },
+            h3: {
+              marginTop: '2rem',
+              fontSize: '1.15rem',
+              fontWeight: '700',
+            },
             'p:first-of-type::first-letter': {
               float: 'left',
               fontSize: '4rem',

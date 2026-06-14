@@ -11,9 +11,10 @@ interface Props {
   section: 'unheard-tales' | 'ajanya-kissa' | 'sacred-history' | 'dharmic-itihas';
   readTime: number;
   slug: string;
+  image?: string;
 }
 
-const { title, description, date, section, readTime, slug } = Astro.props;
+const { title, description, date, section, readTime, slug, image } = Astro.props;
 
 const sectionMeta: Record<string, { label: string; href: string; gu: boolean }> = {
   'unheard-tales':  { label: 'Unheard Tales',    href: '/unheard-tales',  gu: false },
@@ -68,6 +69,13 @@ const dateStr = new Date(date).toLocaleDateString('en-IN', {
         {description}
       </p>
 
+      <!-- Cover image (optional) -->
+      {image && (
+        <div class="mb-6 rounded-lg overflow-hidden">
+          <img src={image} alt="" class="w-full h-[220px] object-cover" loading="eager" />
+        </div>
+      )}
+
       <!-- Meta -->
       <div class="flex items-center gap-4 text-sm text-site-muted border-t border-b border-site-border py-3">
         <time datetime={date.toISOString()}>{dateStr}</time>
@@ -77,6 +85,9 @@ const dateStr = new Date(date).toLocaleDateString('en-IN', {
         <a href={meta.href} class={`text-accent hover:underline ${isGu ? 'lang-gujarati' : ''}`}>{meta.label}</a>
       </div>
     </header>
+
+    <!-- Header / body separator -->
+    <div class="border-t-2 border-accent/20 mb-10"></div>
 
     <!-- Article body -->
     <article class={`prose prose-lg max-w-none ${isGu ? 'lang-gujarati' : 'prose-dropcap'}`}>
