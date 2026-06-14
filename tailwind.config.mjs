@@ -27,8 +27,8 @@ export default {
           css: {
             color: '#1A1A1A',
             maxWidth: 'none',
-            fontSize: '1.125rem',
-            lineHeight: '1.8',
+            fontSize: '1.2rem',
+            lineHeight: '1.85',
             fontFamily: 'Lora, Georgia, serif',
             'h1, h2, h3, h4': {
               fontFamily: 'Inter, system-ui, sans-serif',
@@ -53,7 +53,7 @@ export default {
               marginBottom: '2.5rem',
             },
             h3: {
-              marginTop: '2rem',
+              marginTop: '1.25rem',
               fontSize: '1.15rem',
               fontWeight: '700',
             },

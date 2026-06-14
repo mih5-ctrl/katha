@@ -70,9 +70,13 @@ const dateStr = new Date(date).toLocaleDateString('en-IN', {
       </p>
 
       <!-- Cover image (optional) -->
-      {image && (
+      {image ? (
         <div class="mb-6 rounded-lg overflow-hidden">
-          <img src={image} alt="" class="w-full h-[220px] object-cover" loading="eager" />
+          <img src={image} alt="" class="w-full h-[180px] object-cover" loading="eager" />
+        </div>
+      ) : (
+        <div class="mb-6 rounded-lg h-[180px] bg-site-border/40 flex items-center justify-center text-sm text-site-muted">
+          Add <code class="mx-1 px-1 bg-site-border rounded text-xs">image: "/images/filename.jpg"</code> to frontmatter
         </div>
       )}
 
