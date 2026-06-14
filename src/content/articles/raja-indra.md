@@ -9,8 +9,6 @@ draft: false
 
 *"Imagine a king so powerful that the sky roared at his command. Now, imagine that same king reduced to a misunderstood shadow in the dusty pages of history. How does a god who ruled the heavens become a forgotten ghost?"*
 
-## The Forgotten Emperor: The Untold Story of Devraj Indra
-
 ### 1. The Invisible King All Around Us
 
 Think Lord Indra is gone forever? Think again. Today, we have over 1,200 towns named after Lord Rama and 1,300 after Lord Vishnu. But Indra? Barely 50. You won't find grand temples built for him, nor will you hear crowds singing his *Aarti*.

@@ -27,16 +27,3 @@
   }
 }
 
-@layer components {
-  /* Drop cap only for English serif articles */
-  .prose-dropcap p:first-of-type::first-letter {
-    float: left;
-    font-size: 4rem;
-    line-height: 1;
-    margin-right: 0.1em;
-    margin-top: 0.05em;
-    font-family: 'Lora', Georgia, serif;
-    font-weight: 700;
-    color: #B5451B;
-  }
-}

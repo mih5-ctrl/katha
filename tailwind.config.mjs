@@ -57,15 +57,9 @@ export default {
               fontSize: '1.15rem',
               fontWeight: '700',
             },
-            'p:first-of-type::first-letter': {
-              float: 'left',
-              fontSize: '4rem',
-              lineHeight: '1',
-              marginRight: '0.1em',
-              marginTop: '0.05em',
-              fontFamily: 'Lora, Georgia, serif',
-              fontWeight: '700',
-              color: '#B5451B',
+            li: {
+              marginTop: '0.3rem',
+              marginBottom: '0.3rem',
             },
           },
         },

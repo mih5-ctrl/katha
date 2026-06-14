@@ -48,7 +48,7 @@ const dateStr = new Date(date).toLocaleDateString('en-IN', {
 
   <Nav />
 
-  <main class="max-w-[720px] mx-auto px-5 pt-10 pb-24">
+  <main class="max-w-[720px] mx-auto px-6 pt-10 pb-24 border-l border-r border-site-border">
 
     <!-- Breadcrumb -->
     <nav class="flex items-center gap-2 text-sm text-site-muted mb-8">
@@ -90,7 +90,7 @@ const dateStr = new Date(date).toLocaleDateString('en-IN', {
     <div class="border-t-2 border-accent/20 mb-10"></div>
 
     <!-- Article body -->
-    <article class={`prose prose-lg max-w-none ${isGu ? 'lang-gujarati' : 'prose-dropcap'}`}>
+    <article class={`prose prose-lg max-w-none ${isGu ? 'lang-gujarati' : ''}`}>
       <slot />
     </article>
 
